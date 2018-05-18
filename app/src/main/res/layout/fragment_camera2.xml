@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="isRecording"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="isCameraOpen"
+            type="java.lang.Boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/btn_control_cam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{isCameraOpen? "close" : "open"}' />
+
+            <Button
+                android:id="@+id/btn_control_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/btn_control_cam"
+                android:text='@{isRecording? "stop record": "start record" }' />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
