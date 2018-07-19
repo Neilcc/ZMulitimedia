@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.SurfaceTexture;
+import android.opengl.GLES20;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,13 +76,14 @@ public class Camera2Fragment extends Fragment {
     private void openCamera() {
         if (!PermissionUtil.hasPermissionsGranted(getActivity(), VIDEO_PERMISSIONS)) {
             requestPermissions(VIDEO_PERMISSIONS, PERMISION_REQ_CODE);
+        }else {
+            final Activity activity = getActivity();
+            if (null == activity || activity.isFinishing()) {
+                return;
+            }
+            cameraPresenter.openCamera(getActivity(), textureWidth, textureHeight,
+                    fragmentCamera2Binding.autoFitTextureView);
         }
-        final Activity activity = getActivity();
-        if (null == activity || activity.isFinishing()) {
-            return;
-        }
-        cameraPresenter.openCamera(getActivity(), textureWidth, textureHeight,
-                fragmentCamera2Binding.autoFitTextureView);
 
     }
 
@@ -108,6 +110,7 @@ public class Camera2Fragment extends Fragment {
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            cameraPresenter.openCamera(getActivity(), textureWidth, textureHeight, fragmentCamera2Binding.autoFitTextureView);
         }
     }
 }
