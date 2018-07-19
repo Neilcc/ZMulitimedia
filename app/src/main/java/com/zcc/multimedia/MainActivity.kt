@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     .commitAllowingStateLoss()
             R.id.tv_camera1 -> {
                 val intent = Intent()
-                intent.setClass(this, Camera1Activity::class.java!!)
+                intent.setClass(this, Camera1Activity::class)
                 startActivity(intent)
             }
         }

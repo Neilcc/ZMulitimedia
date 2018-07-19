@@ -1,2 +1,2 @@
 # ZMulitimedia
-Multimedia practise project
+Multimedia practice project
