@@ -1,4 +1,4 @@
-package com.zcc.multimedia.camera1;
+package com.zcc.multimedia.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,8 +15,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zcc.multimedia.R;
+import com.zcc.multimedia.camera1.Camera1GLHelper;
 
-public class Camera1Activity extends AppCompatActivity implements View.OnClickListener {
+public class Camera1ActivityWithSurfaceTexture extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Camera1Act";
     private static final int REQUEST_CODE_PERMISSION = 1;
@@ -25,13 +26,11 @@ public class Camera1Activity extends AppCompatActivity implements View.OnClickLi
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO
     };
-//    private static final String TEST_FILE_NAME = "test.mp4";
     private Button recordButton;
     private GLSurfaceView cameraGLSurface;
 
     private boolean isRecordingNow = false;
     private Camera1GLHelper camera1Helper;
-//    private CapturingManager capturingManager;
 
     public static boolean isPermissionNotGranted(Context context, String[] permissions) {
         for (String permission : permissions) {
@@ -97,9 +96,6 @@ public class Camera1Activity extends AppCompatActivity implements View.OnClickLi
             cameraGLSurface.queueEvent(() -> {
 //                    capturingManager.stopCapturing(0);
             });
-//            Toast.makeText(this,
-//                    "record successed! file at " + CapturingManager.getDirectoryDCIM()
-//                            + TEST_FILE_NAME, Toast.LENGTH_LONG).show();
         } else {
             recordButton.setText(R.string.stop_recording);
 //            if (capturingManager == null) {
@@ -130,6 +126,11 @@ public class Camera1Activity extends AppCompatActivity implements View.OnClickLi
     protected void onPause() {
         cameraGLSurface.onPause();
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

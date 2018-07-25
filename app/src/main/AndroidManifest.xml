@@ -26,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".camera1.Camera1Activity" />
+        <activity android:name=".activities.Camera1ActivityWithSurfaceTexture" />
+        <activity android:name=".activities.Camera1ActivityWithFBO" />
     </application>
 
 </manifest>

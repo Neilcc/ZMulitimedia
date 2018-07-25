@@ -70,6 +70,7 @@ public class Camera1Manager implements Camera.PreviewCallback {
                 mCamera.getParameters().setRotation(getCorrectCameraOrientation(currentActivity, info));
                 setCamera(targetPreviewWidth, targetPreviewHeight);
                 mCamera.setPreviewTexture(cameraSurfaceTexture);
+//                mCamera.setPreviewDisplay( null);
                 mCamera.setPreviewCallbackWithBuffer(this);
                 mFov = mCamera.getParameters().getHorizontalViewAngle();
                 mCamera.startPreview();

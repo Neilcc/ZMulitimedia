@@ -12,10 +12,6 @@ import com.zcc.multimedia.grafika.gles.EglCore;
 import com.zcc.multimedia.grafika.gles.FullFrameRect;
 import com.zcc.multimedia.grafika.gles.Texture2dProgram;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -37,7 +33,6 @@ public class Camera1GLHelper implements GLSurfaceView.Renderer, Camera.PreviewCa
     private boolean permissionGranted = false;
     private boolean isInited = false;
     private OnTextureRendListener onTextureRendListener;
-//    private BlockingQueue<Runnable> blockingQueue = new LinkedBlockingQueue<>();
 
     public Camera1GLHelper(Activity activity, GLSurfaceView mGLSurface) {
         this.mCamera1Manager = new Camera1Manager();
@@ -50,9 +45,6 @@ public class Camera1GLHelper implements GLSurfaceView.Renderer, Camera.PreviewCa
         this.onTextureRendListener = onTextureRendListener;
     }
 
-//    public void runOnGLThread(Runnable runnable) {
-//        blockingQueue.add(runnable);
-//    }
 
     public int getW() {
         return w;
@@ -99,16 +91,6 @@ public class Camera1GLHelper implements GLSurfaceView.Renderer, Camera.PreviewCa
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-//        try {
-//            if (blockingQueue.size() > 0) {
-//                Runnable pendingRunnable = blockingQueue.poll(100, TimeUnit.MICROSECONDS);
-//                if (pendingRunnable != null) {
-//                    pendingRunnable.run();
-//                }
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         if (isInited) {
             float[] mtx = new float[16];
             mCameraSurfaceTexture.updateTexImage();
