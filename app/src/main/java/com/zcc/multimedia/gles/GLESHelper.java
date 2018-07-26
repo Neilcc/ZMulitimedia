@@ -2,7 +2,6 @@ package com.zcc.multimedia.gles;
 
 import android.opengl.GLES20;
 import android.util.Log;
-import android.view.Surface;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -73,13 +72,14 @@ public class GLESHelper {
         return floatBuffer;
     }
 
+
     public static void rend(int w, int h) {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTICES_SHADER_SOURCE);
         int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE);
         int mProgram = creatProgram(vertexShader, fragmentShader);
         int vPosition = GLES20.glGetAttribLocation(mProgram, "vPosition");
         int uColor = GLES20.glGetUniformLocation(mProgram, "uColor");
-        GLES20.glClearColor(1.0f, 0, 0, 1.0f);
+        GLES20.glClearColor(0.0f, 0, 1.0f, 1.0f);
         GLES20.glViewport(0, 0, w, h);
         FloatBuffer floatBuffer = getVertices();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
