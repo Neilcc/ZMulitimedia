@@ -12,11 +12,30 @@
 
     <Button
         android:id="@+id/btn_record"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
         android:text="start_recording" />
+
+    <Button
+        android:id="@+id/btn_fbo"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="enable fbo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/btn_fbo"
+        android:layout_toRightOf="@+id/btn_record"
+        android:id="@+id/btn_show_fbo"
+        android:text="show fbo t" />
 
 </RelativeLayout>

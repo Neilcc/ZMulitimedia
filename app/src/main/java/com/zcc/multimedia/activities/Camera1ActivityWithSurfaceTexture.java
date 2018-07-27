@@ -49,6 +49,8 @@ public class Camera1ActivityWithSurfaceTexture extends AppCompatActivity impleme
         cameraGLSurface = findViewById(R.id.sv_camera);
         recordButton = findViewById(R.id.btn_record);
         recordButton.setOnClickListener(this);
+        findViewById(R.id.btn_fbo).setOnClickListener(this);
+        findViewById(R.id.btn_show_fbo).setOnClickListener(this);
         initGLSurface();
         if (isPermissionNotGranted(this, PERMISSIONS)) {
             // 开启扫图
@@ -81,6 +83,11 @@ public class Camera1ActivityWithSurfaceTexture extends AppCompatActivity impleme
             case R.id.btn_record:
                 isRecordingNow = doRecordStuff(isRecordingNow);
                 break;
+            case R.id.btn_fbo:
+                camera1Helper.changeFBO();
+                break;
+            case R.id.btn_show_fbo:
+                camera1Helper.changeShowFBO();
             default:
                 Log.e(TAG, "no view id matched");
                 break;
@@ -90,7 +97,7 @@ public class Camera1ActivityWithSurfaceTexture extends AppCompatActivity impleme
     private boolean doRecordStuff(boolean isRecordingNow) {
         if (isRecordingNow) {
             recordButton.setText(R.string.start_recording);
-            cameraGLSurface.queueEvent(()->{
+            cameraGLSurface.queueEvent(() -> {
 
             });
             cameraGLSurface.queueEvent(() -> {
