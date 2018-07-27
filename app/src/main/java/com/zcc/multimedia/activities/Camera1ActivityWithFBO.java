@@ -35,6 +35,7 @@ public class Camera1ActivityWithFBO extends AppCompatActivity implements Surface
     private boolean drainTextureFromFBO = false;
     private FullFrameRect mFullScreen;
     private float[] matrix = new float[16];
+    private int mProgram = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class Camera1ActivityWithFBO extends AppCompatActivity implements Surface
 
 
     private void createFBO(int width, int height) {
-//        if (isFBOCreated) return;
+        if (isFBOCreated) return;
         GLES20.glGenFramebuffers(1, glFBO, 0);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, glFBO[0]);
         GlUtil.checkGlError("bindFrameBuffer");
@@ -94,13 +95,13 @@ public class Camera1ActivityWithFBO extends AppCompatActivity implements Surface
         GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGB, width, height,
                 0, GLES20.GL_RGB, GLES20.GL_UNSIGNED_BYTE, null);
 
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MIN_FILTER,
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
                 GLES20.GL_NEAREST);
-        GLES20.glTexParameterf(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MAG_FILTER,
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
                 GLES20.GL_LINEAR);
-        GLES20.glTexParameteri(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_S,
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
                 GLES20.GL_CLAMP_TO_EDGE);
-        GLES20.glTexParameteri(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_T,
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
                 GLES20.GL_CLAMP_TO_EDGE);
         GlUtil.checkGlError("glTexParameter");
 
@@ -122,6 +123,7 @@ public class Camera1ActivityWithFBO extends AppCompatActivity implements Surface
         // Switch back to the default framebuffer.
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
         // create fbo finished
+        isFBOCreated = true;
     }
 
     private void showFBO() {
@@ -158,7 +160,8 @@ public class Camera1ActivityWithFBO extends AppCompatActivity implements Surface
                 if (enableFBO) {
                     GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, glFBO[0]);
                 }
-                GLESHelper.rend(this.width, this.height);
+                if (mProgram == 0) mProgram = GLESHelper.init();
+                GLESHelper.rend(mProgram, this.width, this.height);
                 if (enableFBO) {
                     GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
                 }

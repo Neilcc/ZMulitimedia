@@ -72,11 +72,8 @@ public class GLESHelper {
         return floatBuffer;
     }
 
+    public static void rend(int mProgram, int w, int h) {
 
-    public static void rend(int w, int h) {
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTICES_SHADER_SOURCE);
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE);
-        int mProgram = creatProgram(vertexShader, fragmentShader);
         int vPosition = GLES20.glGetAttribLocation(mProgram, "vPosition");
         int uColor = GLES20.glGetUniformLocation(mProgram, "uColor");
         GLES20.glClearColor(0.0f, 0, 1.0f, 1.0f);
@@ -89,5 +86,12 @@ public class GLESHelper {
         GLES20.glEnableVertexAttribArray(vPosition);
         GLES20.glUniform4f(uColor, 0.0f, 1.0f, 0.0f, 1.0f);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 3);
+    }
+
+    public static int init() {
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTICES_SHADER_SOURCE);
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE);
+        int mProgram = creatProgram(vertexShader, fragmentShader);
+        return mProgram;
     }
 }
