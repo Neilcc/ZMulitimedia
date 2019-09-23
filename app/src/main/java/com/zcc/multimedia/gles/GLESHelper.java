@@ -74,16 +74,20 @@ public class GLESHelper {
 
     public static void rend(int mProgram, int w, int h) {
 
+        /**取引用**/
         int vPosition = GLES20.glGetAttribLocation(mProgram, "vPosition");
         int uColor = GLES20.glGetUniformLocation(mProgram, "uColor");
+
         GLES20.glClearColor(0.0f, 0, 1.0f, 1.0f);
         GLES20.glViewport(0, 0, w, h);
         FloatBuffer floatBuffer = getVertices();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glUseProgram(mProgram);
         // stride 步长
+        /**赋值 position**/
         GLES20.glVertexAttribPointer(vPosition, 2, GLES20.GL_FLOAT, false, 0, floatBuffer);
         GLES20.glEnableVertexAttribArray(vPosition);
+        /**赋值 ucolor**/
         GLES20.glUniform4f(uColor, 0.0f, 1.0f, 0.0f, 1.0f);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 3);
     }
@@ -91,7 +95,6 @@ public class GLESHelper {
     public static int init() {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTICES_SHADER_SOURCE);
         int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE);
-        int mProgram = creatProgram(vertexShader, fragmentShader);
-        return mProgram;
+        return creatProgram(vertexShader, fragmentShader);
     }
 }
